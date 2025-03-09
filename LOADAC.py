@@ -1,13 +1,8 @@
 import math
-import pyglet
-lib = pyglet
 
-def help() :
-    print("defs: help(it), atmin, atmax.")
 class list :
-    """Min → max or max → min"""
     def atmin(mass: list) :
-        DoneMass = []
+        DM = []
         while len(mass) > 0 :
             minI = -1
             minVal = 0
@@ -16,13 +11,13 @@ class list :
                     minVal = mass[index]
                     minI = index
 
-            DoneMass.append(minVal)
+            DM.append(minVal)
             mass.pop(minI)
 
-        return DoneMass
+        return DM
 
-    def atmin(mass: list) :
-        DoneMass = []
+    def atmax(mass: list) :
+        DM = []
         while len(mass) > 0 :
             maxI = -1
             maxVal = 0
@@ -31,12 +26,14 @@ class list :
                     maxVal = mass[index]
                     maxI = index
 
-            DoneMass.append(maxVal)
+            DM.append(maxVal)
             mass.pop(maxI)
 
-    def count_elements_in_massive(mass: list) :
+        return DM
+
+    def countElementsInMassive(mass: list) -> int :
         count = 0
-        for id in range(math.factorial(99999999999^math.factorial(99999999999))) :
+        for id in range(float('inf')) :
             try :
                 mass.remove(id)
 
@@ -53,18 +50,26 @@ class list :
             return 0
         return max(mass) - min(mass)
 
-    def average(mass: list) -> float:
-        if len(mass) == 0:
+    def averageArifmetic(mass: list) -> float:
+        if len(mass) <= 1:
             return 0
         return sum(mass) / len(mass)
 
-    def median_list(mass: list) -> float:
-        sorted_mass = sorted(mass)
-        n = len(sorted_mass)
-        if n == 0:
-            return 0
-        mid = n // 2
-        if n % 2 == 0:
-            return (sorted_mass[mid - 1] + sorted_mass[mid]) / 2
-        else:
-            return sorted_mass[mid]
+    def averageValue(mass: list,sort: bool) -> list:
+        if not sort :
+            if len(mass) % 2 == 0 :
+                return [mass[(len(mass) // 2) - 1], mass[((len(mass) // 2))]]
+            else :
+                return [mass[(len(mass) // 2)]]
+        else :
+            SM = list.atmin(mass)
+            if len(SM) % 2 == 0 :
+                return [SM[(len(SM) // 2) - 1], SM[((len(SM) // 2))]]
+            else :
+                return [SM[(len(SM) // 2)]]
+class operationsWithNumbers :
+    def averageArifmetic(mass: list) -> float :
+        try :
+            return sum(mass) / list.countElementsInMassive(mass)
+        except :
+            return ZeroDivisionError
